@@ -20,7 +20,7 @@ A deep learning system for Indian students (age 15–30) that:
 - 🧮 Calculates BMI & daily calorie needs
 
 ---
-
+<!--
 ## 👨‍💻 Team
 | Member | Role | Module |
 |--------|------|--------|
@@ -30,7 +30,7 @@ A deep learning system for Indian students (age 15–30) that:
 | M4 | Dashboard + Auth | Streamlit UI + Face Login |
 
 ---
-
+-->
 ## 🛠️ Tech Stack
 | Layer | Technology |
 |-------|-----------|
