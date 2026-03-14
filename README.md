@@ -28,9 +28,9 @@ A deep learning system for Indian students (age 15–30) that:
 | M2 | Health Analytics | BMI / BMR / Calorie Prediction |
 | M3 | Recommendation | Pattern Detection + Alerts |
 | M4 | Dashboard + Auth | Streamlit UI + Face Login |
-
----
 -->
+---
+
 ## 🛠️ Tech Stack
 | Layer | Technology |
 |-------|-----------|
