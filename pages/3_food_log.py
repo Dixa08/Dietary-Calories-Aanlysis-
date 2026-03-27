@@ -1,6 +1,6 @@
-✅ 1. src/food_logger.py
+'''✅ 1. src/food_logger.py
 Handles storing and retrieving food logs (SQLite)
-Python
+Python'''
 import sqlite3
 from datetime import datetime
 
