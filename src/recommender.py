@@ -1,6 +1,6 @@
-✅ 2. src/recommender.py
+'''✅ 2. src/recommender.py
 Gives goal-based suggestions
-Python
+Python'''
 def recommend_food(goal, consumed_calories, target_calories):
     
     remaining = target_calories - consumed_calories
