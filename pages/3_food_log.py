@@ -1,58 +1,26 @@
-'''✅ 1. src/food_logger.py
-Handles storing and retrieving food logs (SQLite)
+'''✅ 2. src/recommender.py
+Gives goal-based suggestions
 Python'''
-import sqlite3
-from datetime import datetime
+def recommend_food(goal, consumed_calories, target_calories):
+    
+    remaining = target_calories - consumed_calories
 
-DB_PATH = "database/food_logs.db"
+    if goal == "weight_loss":
+        if remaining > 300:
+            return "You can eat a light meal like salad or fruits."
+        else:
+            return "Avoid more calories today. Drink water or green tea."
 
-def connect_db():
-    return sqlite3.connect(DB_PATH)
+    elif goal == "muscle_gain":
+        if remaining > 500:
+            return "Add protein-rich food like eggs, paneer, or chicken."
+        else:
+            return "Good intake! Consider a protein shake."
 
-def log_food(user_id, food_name, calories):
-    conn = connect_db()
-    cursor = conn.cursor()
+    elif goal == "maintenance":
+        if remaining > 200:
+            return "Balanced meal recommended."
+        else:
+            return "You reached your daily calorie goal!"
 
-    date = datetime.now().strftime("%Y-%m-%d")
-
-    cursor.execute("""
-        INSERT INTO food_log (user_id, food_name, calories, date)
-        VALUES (?, ?, ?, ?)
-    """, (user_id, food_name, calories, date))
-
-    conn.commit()
-    conn.close()
-
-    return "Food logged successfully!"
-
-def get_daily_calories(user_id):
-    conn = connect_db()
-    cursor = conn.cursor()
-
-    date = datetime.now().strftime("%Y-%m-%d")
-
-    cursor.execute("""
-        SELECT SUM(calories) FROM food_log
-        WHERE user_id=? AND date=?
-    """, (user_id, date))
-
-    result = cursor.fetchone()[0]
-    conn.close()
-
-    return result if result else 0
-
-def get_food_history(user_id):
-    conn = connect_db()
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        SELECT food_name, calories, date
-        FROM food_log
-        WHERE user_id=?
-        ORDER BY date DESC
-    """, (user_id,))
-
-    rows = cursor.fetchall()
-    conn.close()
-
-    return rows
+    return "No recommendation available."
