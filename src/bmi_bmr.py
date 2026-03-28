@@ -1,77 +1,66 @@
-# src/bmi_bmr.py
 
-import pandas as pd
-import numpy as np
-from tensorflow.keras.models import load_model
+# ============================================
+# bmi_bmr.py - Health Analytics Module (M2)
+# ============================================
 
+def calculate_bmi(weight, height_cm):
+    height_m = height_cm / 100
+    bmi = weight / (height_m ** 2)
+    return round(bmi, 2)
 
-# ---------------- BMI ----------------
-def calculate_bmi(weight, height):
-    height = height / 100
-    bmi = weight / (height ** 2)
-
+def get_bmi_status(bmi):
     if bmi < 18.5:
-        category = "Underweight"
-    elif bmi < 24.9:
-        category = "Normal"
-    elif bmi < 29.9:
-        category = "Overweight"
+        return "Underweight"
+    elif bmi < 25:
+        return "Normal"
+    elif bmi < 30:
+        return "Overweight"
     else:
-        category = "Obese"
+        return "Obese"
 
-    return round(bmi, 2), category
-
-
-# ---------------- BMR ----------------
-def calculate_bmr(weight, height, age, gender):
+def calculate_bmr(weight, height_cm, age, gender):
     if gender.lower() == "male":
-        bmr = 10 * weight + 6.25 * height - 5 * age + 5
+        bmr = 10 * weight + 6.25 * height_cm - 5 * age + 5
     else:
-        bmr = 10 * weight + 6.25 * height - 5 * age - 161
-
+        bmr = 10 * weight + 6.25 * height_cm - 5 * age - 161
     return round(bmr, 2)
 
-
-# ---------------- TDEE ----------------
-def calculate_tdee(bmr, activity):
-    activity_map = {
-        "sedentary": 1.2,
-        "light": 1.375,
-        "moderate": 1.55,
-        "active": 1.725,
-        "very_active": 1.9
+def calculate_tdee(bmr, activity_level):
+    factors = {
+        "sedentary":         1.2,
+        "lightly_active":    1.375,
+        "moderately_active": 1.55,
+        "very_active":       1.725
     }
+    factor = factors.get(activity_level, 1.2)
+    return round(bmr * factor, 2)
 
-    return round(bmr * activity_map.get(activity, 1.2), 2)
+def calculate_daily_target(tdee, goal, stress, lifestyle):
+    goal_adj = {"lose": -500, "gain": 400, "maintain": 0}
+    stress_adj = {"low": 0, "medium": -100, "high": -200}
+    lifestyle_adj = {"healthy": 0, "moderate": -50, "unhealthy": -150}
 
+    target = tdee
+    target += goal_adj.get(goal, 0)
+    target += stress_adj.get(stress, 0)
+    target += lifestyle_adj.get(lifestyle, 0)
+    return round(target, 2)
 
-# ---------------- FOOD CALORIES ----------------
-def get_food_calories(food_name):
-    df = pd.read_csv("database/indian_food_calories.csv")
+def get_full_health_report(weight, height_cm, age, gender,
+                            activity_level, goal, stress, lifestyle):
+    bmi    = calculate_bmi(weight, height_cm)
+    status = get_bmi_status(bmi)
+    bmr    = calculate_bmr(weight, height_cm, age, gender)
+    tdee   = calculate_tdee(bmr, activity_level)
+    target = calculate_daily_target(tdee, goal, stress, lifestyle)
 
-    if food_name in df["Food"].values:
-        row = df[df["Food"] == food_name].iloc[0]
-
-        return {
-            "food": food_name,
-            "calories": int(row["Calories"]),
-            "protein": int(row["Protein"]),
-            "carbs": int(row["Carbs"]),
-            "fat": int(row["Fat"])
-        }
-    else:
-        return None
-
-
-# ---------------- ML PREDICTION ----------------
-def predict_calories(age, weight, height, activity):
-    try:
-        model = load_model("models/calorie_mlp.keras")
-
-        data = np.array([[age, weight, height, activity]])
-        prediction = model.predict(data)
-
-        return round(float(prediction[0][0]), 2)
-
-    except:
-        return None
+    return {
+        "bmi":          bmi,
+        "bmi_status":   status,
+        "bmr":          bmr,
+        "tdee":         tdee,
+        "daily_target": target,
+        "goal":         goal,
+        "stress":       stress,
+        "lifestyle":    lifestyle
+    }
