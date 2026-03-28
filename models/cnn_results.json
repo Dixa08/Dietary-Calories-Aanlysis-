@@ -1,0 +1,17 @@
+{
+    "model": "CNN Baseline",
+    "best_val_accuracy": "48.00%",
+    "total_epochs": 10,
+    "classes": [
+        "aloo_tikki",
+        "biryani",
+        "chapati",
+        "dal_makhani",
+        "dal_tadka",
+        "kadai_paneer",
+        "naan",
+        "palak_paneer",
+        "paneer_butter_masala",
+        "poha"
+    ]
+}
