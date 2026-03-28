@@ -1,0 +1,18 @@
+{
+    "model": "MobileNetV2 Transfer Learning",
+    "best_val_accuracy": "87.00%",
+    "total_epochs": 9,
+    "classes": [
+        "aloo_tikki",
+        "biryani",
+        "chapati",
+        "dal_makhani",
+        "dal_tadka",
+        "kadai_paneer",
+        "naan",
+        "palak_paneer",
+        "paneer_butter_masala",
+        "poha"
+    ],
+    "improvement_over_cnn": "39%"
+}
