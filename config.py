@@ -1,11 +1,6 @@
 
-# ============================================
-# config.py - Global Settings for Whole Team
-# ============================================
-
 import os
 
-# ── Project Paths ──
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATASET_PATH = os.path.join(BASE_DIR, "dataset")
 TRAIN_PATH   = os.path.join(DATASET_PATH, "train")
@@ -14,32 +9,29 @@ TEST_PATH    = os.path.join(DATASET_PATH, "test")
 MODEL_PATH   = os.path.join(BASE_DIR, "models")
 DB_PATH      = os.path.join(BASE_DIR, "database")
 
-# ── Model Settings ──
-IMAGE_SIZE    = (224, 224)
-BATCH_SIZE    = 32
-EPOCHS        = 15
-NUM_CLASSES   = 10
+IMAGE_SIZE  = (224, 224)
+BATCH_SIZE  = 32
+EPOCHS      = 15
+NUM_CLASSES = 10
 
-# ── Food Classes ──
 FOOD_CLASSES = [
     "biryani",
-    "dal",
-    "dosa",
-    "idli",
-    "paneer_curry",
+    "chapati",
+    "dal_tadka",
+    "dal_makhani",
+    "paneer_butter_masala",
+    "aloo_tikki",
     "poha",
-    "rajma_chawal",
-    "rice",
-    "roti",
-    "samosa"
+    "naan",
+    "palak_paneer",
+    "kadai_paneer"
 ]
 
-# ── Diet Factors ──
 ACTIVITY_FACTORS = {
-    "sedentary":        1.2,
-    "lightly_active":   1.375,
-    "moderately_active":1.55,
-    "very_active":      1.725
+    "sedentary":         1.2,
+    "lightly_active":    1.375,
+    "moderately_active": 1.55,
+    "very_active":       1.725
 }
 
 STRESS_ADJUSTMENT = {
@@ -49,23 +41,20 @@ STRESS_ADJUSTMENT = {
 }
 
 LIFESTYLE_ADJUSTMENT = {
-    "healthy":  0,
-    "moderate": -50,
-    "unhealthy":-150
+    "healthy":   0,
+    "moderate":  -50,
+    "unhealthy": -150
 }
 
-# ── Goal Settings ──
 GOAL_ADJUSTMENT = {
-    "lose":    -500,
-    "gain":    +400,
-    "maintain": 0
+    "lose":     -500,
+    "gain":     +400,
+    "maintain":  0
 }
 
-# ── Alert Thresholds ──
-OVEREAT_THRESHOLD   = 1.15  # 15% above target
-UNDEREAT_THRESHOLD  = 0.75  # 25% below target
+OVEREAT_THRESHOLD  = 1.15
+UNDEREAT_THRESHOLD = 0.75
 
-# ── Database Files ──
-USERS_DB    = os.path.join(DB_PATH, "users.db")
-FOOD_LOG_DB = os.path.join(DB_PATH, "food_logs.db")
-CALORIES_CSV= os.path.join(DB_PATH, "indian_food_calories.csv")
+USERS_DB     = os.path.join(DB_PATH, "users.db")
+FOOD_LOG_DB  = os.path.join(DB_PATH, "food_logs.db")
+CALORIES_CSV = os.path.join(DB_PATH, "indian_food_calories.csv")
