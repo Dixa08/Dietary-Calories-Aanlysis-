@@ -15,9 +15,9 @@ AI-Based Dietary Calorie Analysis System - 4th Sem DL Project
 A deep learning system for Indian students (age 15–30) that:
 - 📸 Recognizes food from photos
 - 🔢 Estimates calories automatically
-- 📊 Tracks daily & weekly food habits
+- 📊 Tracks daily and weekly food habits
 - 💡 Gives personalized diet recommendations
-- 🧮 Calculates BMI & daily calorie needs
+- 🧮 Calculates BMI and  daily calorie needs
 
 ---
 <!--
